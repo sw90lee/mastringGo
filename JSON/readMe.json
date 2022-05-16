@@ -1,0 +1,9 @@
+{
+  "name": "sungwoo",
+  "Surname": "LEE",
+  "Tel": [
+    {"Moblie":  true, "Number":  "1234-567"},
+    {"Moblie":  true, "Number":  "1234-abcd"},
+    {"Moblie":  false, "Number":  "1234-567"}
+  ]
+}

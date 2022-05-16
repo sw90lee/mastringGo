@@ -1,0 +1,14 @@
+{
+    "Name": "John",
+    "Surname": "Doe",
+    "Age": 25,
+    "Parents": [
+        "Jim",
+        "Mary"
+    ],
+    "Tel": [
+        {"Moblie":true, "Number": "1234-567"},
+        {"Moblie":true, "Number": "abcd-efg"},
+        {"Moblie":false, "Number":"1234-567"}
+    ]   
+}
