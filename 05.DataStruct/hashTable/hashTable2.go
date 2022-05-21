@@ -40,7 +40,6 @@ func (h *HashTable) Search(key string) bool {
 func (h *HashTable) Delete(key string) {
 	index := hash(key)
 	h.array[index].bucketdelete(key)
-
 }
 
 // insert
