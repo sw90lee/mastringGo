@@ -13,7 +13,7 @@ type linkedList struct {
 }
 
 func (l *linkedList) prepend(n *node) {
-	second := l.head
+	second := l.head 
 	l.head = n
 	l.head.next = second
 	l.length++
@@ -45,7 +45,7 @@ func (l *linkedList) deleteWithValue(value int) {
 			return
 		}
 		previousToDelete = previousToDelete.next
-	}
+	} 	
 	previousToDelete.next = previousToDelete.next.next
 	l.length--
 }
