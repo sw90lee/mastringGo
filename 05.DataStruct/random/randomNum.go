@@ -35,7 +35,6 @@ func main() {
 	var i int64 = 1
 	for {
 		myRand := random(MIN, MAX)
-		// 33 + myRand 으로 나오는 숫자를 더한값을 string으로 만듬 
 		newChar := string(startChar[0] + byte(myRand))
 		fmt.Print(newChar)
 		if i == LENGTH {
