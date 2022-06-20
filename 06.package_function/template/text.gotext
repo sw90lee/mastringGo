@@ -1,0 +1,3 @@
+Calculating the Squeres of some intergers
+{{ range . }} The Squere of {{ printf "%d" .Number }} is {{ printf "%d" .Squere }}
+{{ end }}
