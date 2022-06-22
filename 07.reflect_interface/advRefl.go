@@ -38,7 +38,6 @@ func printMethods(i interface{}) {
 	// 메서드 안에 가진 갯수만큼 루프
 	for j := 0; j < r.NumMethod(); j++ {
 		m := r.Method(j).Type()
-		// Method Name ---> Type 출력
 		fmt.Println(t.Method(j).Name, "--->", m)
 	}
 }
@@ -50,7 +49,6 @@ func main() {
 	fmt.Printf("The type of x2 is %s\n", reflect.TypeOf(x2))
 
 	var p struct{}
-	// reflect.New의 return값은 reflect.Value임
 	r := reflect.New(reflect.ValueOf(&p).Type()).Elem()
 	fmt.Printf("The type of r is %s\n", reflect.TypeOf(r))
 
