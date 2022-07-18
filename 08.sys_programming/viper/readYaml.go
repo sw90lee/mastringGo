@@ -13,18 +13,15 @@ func main() {
 	flag.Parse()
 
 	// os.Stat을 호출해 설정 플래그인 --c의 값을 검사
-	// --c의 default myConfig 파일을 찾는다.
 	_, err := os.Stat(*configFile)
 	if err == nil {
 		fmt.Println("Using User Specified Configuration File!")
 		viper.SetConfigFile(*configFile)
-		// --c의 default가 없을경우 Path를 4개의 경로에 myConfig가 있는지 찾는다.
 	} else {
 		viper.SetConfigName(*configFile)
 		viper.AddConfigPath("/tmp")
 		viper.AddConfigPath("$HOME")
 		viper.AddConfigPath(".")
-		viper.AddConfigPath("08.sys_programming/viper")
 	}
 
 	err = viper.ReadInConfig()
