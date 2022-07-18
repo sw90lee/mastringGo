@@ -1,4 +1,4 @@
-module github.com/sw90lee/golangstudy
+module github.com/sw90lee/mastringGo
 
 go 1.17
 
