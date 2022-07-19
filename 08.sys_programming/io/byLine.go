@@ -6,32 +6,29 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"regexp"
 )
 
-func wordByWord(file string) error {
+func lineByLine(file string) error {
 	var err error
+
 	f, err := os.Open(file)
 	if err != nil {
 		return err
 	}
+
 	defer f.Close()
 
 	r := bufio.NewReader(f)
 	for {
+		// 한줄 씩 (\n) 파일을 읽음
 		line, err := r.ReadString('\n')
 		if err == io.EOF {
 			break
 		} else if err != nil {
-			fmt.Printf("error reading file: %s\n", err)
-			return err
+			fmt.Printf("error reading file %s", err)
+			break
 		}
-
-		r := regexp.MustCompile("[^\\s]+")
-		words := r.FindAllString(line, -1)
-		for i := 0; i < len(words); i++ {
-			fmt.Println(words[i])
-		}
+		fmt.Print(line)
 	}
 	return nil
 }
@@ -39,12 +36,12 @@ func wordByWord(file string) error {
 func main() {
 	flag.Parse()
 	if len(flag.Args()) == 0 {
-		fmt.Printf("usage: byWord <file2> [<file2> ...] \n")
+		fmt.Printf("usage: byLine <file1> [<file2> ...] \n")
 		return
 	}
 
 	for _, file := range flag.Args() {
-		err := wordByWord(file)
+		err := lineByLine(file)
 		if err != nil {
 			fmt.Println(err)
 		}
