@@ -1,52 +1,66 @@
 package main
 
 import (
-	"bufio"
-	"flag"
+	"encoding/csv"
 	"fmt"
-	"io"
 	"os"
-	"regexp"
+	"strconv"
+
+	"github.com/Arafatk/glot"
 )
 
-func wordByWord(file string) error {
-	var err error
-	f, err := os.Open(file)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
-
-	r := bufio.NewReader(f)
-	for {
-		line, err := r.ReadString('\n')
-		if err == io.EOF {
-			break
-		} else if err != nil {
-			fmt.Printf("error reading file: %s\n", err)
-			return err
-		}
-
-		r := regexp.MustCompile("[^\\s]+")
-		words := r.FindAllString(line, -1)
-		for i := 0; i < len(words); i++ {
-			fmt.Println(words[i])
-		}
-	}
-	return nil
-}
-
 func main() {
-	flag.Parse()
-	if len(flag.Args()) == 0 {
-		fmt.Printf("usage: byWord <file2> [<file2> ...] \n")
+	if len(os.Args) != 2 {
+		fmt.Println("Need a data file!")
 		return
 	}
 
-	for _, file := range flag.Args() {
-		err := wordByWord(file)
-		if err != nil {
-			fmt.Println(err)
-		}
+	file := os.Args[1]
+	_, err := os.Stat(file)
+	if err != nil {
+		fmt.Println("Cannot stat", file)
+		return
 	}
+
+	f, err := os.Open(file)
+	if err != nil {
+		fmt.Println("Cannot open", file)
+		fmt.Println("err")
+		return
+	}
+	defer f.Close()
+
+	reader := csv.NewReader(f)
+	reader.FieldsPerRecord = -1
+	allRecords, err := reader.ReadAll()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	xP := []float64{}
+	yP := []float64{}
+	for _, rec := range allRecords {
+		x, _ := strconv.ParseFloat(rec[0], 64)
+		y, _ := strconv.ParseFloat(rec[1], 64)
+		xP = append(xP, x)
+		yP = append(yP, y)
+	}
+	points := [][]float64{}
+	points = append(points, xP)
+	points = append(points, yP)
+	fmt.Println(points)
+
+	dimension := 2
+	persist := true
+	debug := false
+	plot, _ := glot.NewPlot(dimension, persist, debug)
+	plot.SetTitle("Using Glot with CSV data")
+	plot.SetLabels("X-Axis")
+	plot.SetLabels("Y-Axis")
+	style := "circle"
+
+	plot.AddPointGroup("Circle", style, points)
+	plot.SavePlot("output.png")
+
 }
