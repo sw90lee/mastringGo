@@ -60,3 +60,18 @@ func listImages() error {
 	}
 	return nil
 }
+
+func main() {
+	fmt.Println("The available images are : ")
+	err := listImages()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	fmt.Println("The runnig Containers are : ")
+	err = listConteners()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+}
